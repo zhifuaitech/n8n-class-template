@@ -1,0 +1,27 @@
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+  name: n8n-class-demo
+  description: 給學員使用的 n8n 自動化課程環境 (SQLite版)
+  icon: https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png
+spec:
+  services:
+    - name: n8n
+      icon: https://raw.githubusercontent.com/n8n-io/n8n/master/assets/n8n-logo.png
+      docker:
+        image: n8n-io/n8n:latest
+        ports:
+          - port: 5678
+            type: HTTP
+        environment:
+          N8N_PORT: "5678"
+          N8N_PROTOCOL: "https"
+          NODE_ENV: "production"
+          GENERIC_TIMEZONE: "Asia/Taipei"
+          TZ: "Asia/Taipei"
+        volumes:
+          - id: n8n_data
+            path: /home/node/.n8n
+      # 這裡是最重要的部分：讓 Zeabur 自動注入網址
+      # 這樣學員就不用自己設定 Webhook URL 了
+      dependencies: []
