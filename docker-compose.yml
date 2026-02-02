@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  n8n:
+    image: n8n-io/n8n:latest
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=${ZEABUR_WEB_URL}
+      - WEBHOOK_URL=${ZEABUR_WEB_URL}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - GENERIC_TIMEZONE=Asia/Taipei
+      - TZ=Asia/Taipei
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
